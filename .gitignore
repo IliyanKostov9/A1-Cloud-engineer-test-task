@@ -159,3 +159,8 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/ 
 azure-credentials.json
+azure_credentials.json
+azure_credentials_withcert.json
+azure.json
+azure_sp_cert.pkcs12
+azure_sp_cert_pkcs12_base64encoded
