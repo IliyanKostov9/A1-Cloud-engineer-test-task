@@ -1,9 +1,9 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
 metadata:
-  name: virtualmachines.compute.example.com
+  name: virtualmachines.compute.a1.com
 spec:
-  group: compute.example.com
+  group: compute.a1.com
   names:
     kind: VirtualMachine
     plural: virtualmachines

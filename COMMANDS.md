@@ -144,20 +144,16 @@ The azure_credentials.json file will be generated in your folder directory after
 Before creating an SPN, you would need to base64 the certificate content
 
 ```bash
-# extract the path of the generated PEM certificate
 AZ_CLIENT_CERT_PEM_PATH="$(jq -r '.clientCertificate' azure_credentials.json)"
 
-# convert PEM to PKCS12 using openssl tool
 openssl pkcs12 -export \
                -out azure_sp_cert.pkcs12 \
                -in "${AZ_CLIENT_CERT_PEM_PATH}" \
                -inkey "${AZ_CLIENT_CERT_PEM_PATH}" \
                -passout pass:
 
-# encode the certificate
 base64 -i azure_sp_cert.pkcs12 | tr -d '\n' > azure_sp_cert_pkcs12_base64encoded
 
-# replace clientCertificate field in azure_credentials.json with base64-encoded certificate content
 jq --rawfile certcontent azure_sp_cert_pkcs12_base64encoded \
     '.clientCertificate=$certcontent' azure_credentials.json > azure_credentials_withcert.json
 ```
@@ -301,10 +297,10 @@ Then associate the claim namespace to the XR apiVersion:
 
 ```bash
 cat <<EOF | kubectl apply -f -
-apiVersion: compute.example.com/v1alpha1
+apiVersion: compute.a1.com/v1alpha1
 kind: VirtualMachineClaim
 metadata:
-  name: my-namespaced-vm
+  name: namespace-a1-vm
   namespace: crossplane-test
 spec:
   location: "EU"
@@ -315,7 +311,7 @@ EOF
 Output:
 
 ```bash
-virtualmachineclaim.compute.example.com/my-namespaced-vm created
+virtualmachineclaim.compute.example.com/namespace-a1-vm created
 ```
 
 View the claim namespace:
@@ -335,5 +331,5 @@ Delete the claim and the standalone composite
 # Standalone composite
 kubectl delete VirtualMachine my-vm
 # Claim
-kubectl delete claim -n crossplane-test my-namespaced-vm
+kubectl delete claim -n crossplane-test namespace-a1-vm
 ```

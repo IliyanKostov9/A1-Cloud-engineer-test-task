@@ -120,5 +120,5 @@ spec:
                 EU: "Sweden Central"
                 US: "Central US"
   compositeTypeRef:
-    apiVersion: compute.example.com/v1alpha1
+    apiVersion: compute.a1.com/v1alpha1
     kind: VirtualMachine
